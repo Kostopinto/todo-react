@@ -2,32 +2,28 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TodoInput from "./TodoInput";
-import ListCreator from "./ListCreator";
+import ListCreator from "./ListCreator/ListCreator";
 
 class TodoApp extends React.Component {
-  addTask = () => {
+  addTask = newTodoValue => {
     const newTODO = {
-      description: document.getElementById("new-task-input").value,
+      description: newTodoValue,
       isEditing: false,
       isChecked: false
     };
     this.props.newTask(newTODO);
-    document.getElementById("new-task-input").value = "";
   };
 
-  deleteTask = index => event => {
-    event.stopPropagation();
+  deleteTask = index => () => {
     this.props.removeTask(index);
   };
 
-  onEdit = index => event => {
-    event.stopPropagation();
+  onEdit = index => () => {
     this.props.editTask(index);
   };
 
-  saveEdit = index => () => {
-    const newValue = document.getElementById(index).value;
-    this.props.saveEditTask(index, newValue);
+  saveEdit = (editValue, index) => {
+    this.props.saveEditTask(editValue, index);
   };
 
   onCompleted = index => () => {

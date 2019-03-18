@@ -5,18 +5,15 @@ import TodoApp from "./components/TodoApp";
 import "./styles/App.css";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      todos: [
-        {
-          description: "kotelva",
-          isEditing: false,
-          isChecked: false
-        }
-      ]
-    };
-  }
+  state = {
+    todos: [
+      {
+        description: "kotelva",
+        isEditing: false,
+        isChecked: false
+      }
+    ]
+  };
 
   newTask = newTODO => {
     this.setState({ todos: [...this.state.todos, newTODO] });
@@ -36,18 +33,16 @@ class App extends React.Component {
     this.setState({ todos: newarr });
   };
 
-  saveEditTask = (index, newValue) => {
+  saveEditTask = (editValue, index) => {
     const newarr = [...this.state.todos];
-    newarr[index].description = newValue;
+    newarr[index].description = editValue;
     newarr[index].isEditing = false;
     this.setState({ todos: newarr });
   };
 
   completedTask = index => {
     const newarr = [...this.state.todos];
-    !newarr[index].isChecked
-      ? (newarr[index].isChecked = true)
-      : (newarr[index].isChecked = false);
+    newarr[index].isChecked = !newarr[index].isChecked;
     this.setState({ todos: newarr });
   };
 

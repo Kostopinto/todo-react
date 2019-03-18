@@ -16,6 +16,20 @@ const styles = theme => ({
 });
 
 class TodoInput extends React.Component {
+  state = {
+    inputValue: ""
+  };
+
+  changeInputLocal = event => {
+    const { value } = event.target;
+    this.setState({ inputValue: value });
+  };
+
+  addTask = () => {
+    this.props.addTask(this.state.inputValue);
+    this.setState({ inputValue: "" });
+  };
+
   render() {
     return (
       <div className="todo-input">
@@ -25,9 +39,15 @@ class TodoInput extends React.Component {
           className={styles.textField}
           margin="normal"
           variant="outlined"
+          onChange={this.changeInputLocal}
+          value={this.state.inputValue}
         />
-        <Fab color="primary" className={styles.fab}>
-          <AddIcon onClick={this.props.addTask} />
+        <Fab
+          color="primary"
+          className={styles.fab}
+          disabled={this.state.inputValue === ""}
+        >
+          <AddIcon onClick={this.addTask} />
         </Fab>
       </div>
     );
