@@ -1,0 +1,44 @@
+h1 {
+  color: #27aedb;
+  text-align: center;
+}
+
+#root {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 200px;
+}
+
+.todo-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.list {
+  white-space: pre-wrap;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 15pt;
+  margin: 5px;
+}
+
+.static {
+  text-align: center;
+}
+
+.on-edit {
+  display: flex;
+}
+
+.completed {
+  text-decoration: line-through;
+}
