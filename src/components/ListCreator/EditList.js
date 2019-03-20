@@ -15,25 +15,29 @@ class EditList extends React.Component {
   };
 
   saveEdit = () => {
-    this.props.saveEdit(this.state.inputValue, this.props.index);
+    this.props.saveEditTask(this.state.inputValue, this.props.index);
   };
 
   render() {
-    const { index, item, onEdit } = this.props;
+    const { index, item, editTask } = this.props;
 
     return (
       <div className="on-edit">
         <input
-          id={index}
           className="list-item"
           defaultValue={item.description}
           onChange={this.changeInputLocal}
+          onKeyPress={event => {
+            if (event.key === "Enter") {
+              this.saveEdit();
+            }
+          }}
         />
         <div>
-          <i className="material-icons" onClick={this.saveEdit}>
+          <i className="material-icons" onClick={() => this.saveEdit()}>
             cached
           </i>
-          <i className="material-icons" onClick={onEdit(index)}>
+          <i className="material-icons" onClick={() => editTask(index)}>
             power_settings_new
           </i>
         </div>
@@ -41,10 +45,11 @@ class EditList extends React.Component {
     );
   }
 }
-//onClick={saveEdit(index)}
+
 EditList.propTypes = {
   saveEdit: PropTypes.func,
-  onEdit: PropTypes.func,
+  editTask: PropTypes.func,
+  saveEditTask: PropTypes.func,
   index: PropTypes.number,
   item: PropTypes.object
 };

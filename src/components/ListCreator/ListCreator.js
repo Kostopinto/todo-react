@@ -27,8 +27,8 @@ class ListCreator extends React.Component {
             {this.props.todos.map((item, index) =>
               !item.isEditing ? (
                 <DefaultList
-                  onCompleted={this.props.onCompleted}
-                  onEdit={this.props.onEdit}
+                  completedTask={this.props.completedTask}
+                  editTask={this.props.editTask}
                   deleteTask={this.props.deleteTask}
                   item={item}
                   index={index}
@@ -36,8 +36,8 @@ class ListCreator extends React.Component {
                 />
               ) : (
                 <EditList
-                  saveEdit={this.props.saveEdit}
-                  onEdit={this.props.onEdit}
+                  saveEditTask={this.props.saveEditTask}
+                  editTask={this.props.editTask}
                   item={item}
                   index={index}
                   key={index}
@@ -53,10 +53,10 @@ class ListCreator extends React.Component {
 
 ListCreator.propTypes = {
   todos: PropTypes.array,
-  onCompleted: PropTypes.func,
-  onEdit: PropTypes.func,
+  completedTask: PropTypes.func,
+  editTask: PropTypes.func,
   deleteTask: PropTypes.func,
-  saveEdit: PropTypes.func
+  saveEditTask: PropTypes.func
 };
 
 export default ListCreator;

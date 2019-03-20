@@ -1,64 +1,21 @@
 import React from "react";
+import { Provider } from "react-redux";
 
-import TodoApp from "./components/TodoApp";
+import TodoApp from "./containers/todo";
 
 import "./styles/App.css";
+import storeCreator from "./store.js";
 
+const store = storeCreator();
 class App extends React.Component {
-  state = {
-    todos: [
-      {
-        description: "kotelva",
-        isEditing: false,
-        isChecked: false
-      }
-    ]
-  };
-
-  newTask = newTODO => {
-    this.setState({ todos: [...this.state.todos, newTODO] });
-  };
-
-  removeTask = index => {
-    const newarr = [...this.state.todos];
-    newarr.splice(index, 1);
-    this.setState({ todos: newarr });
-  };
-
-  editTask = index => {
-    const newarr = [...this.state.todos];
-    !newarr[index].isEditing
-      ? (newarr[index].isEditing = true)
-      : (newarr[index].isEditing = false);
-    this.setState({ todos: newarr });
-  };
-
-  saveEditTask = (editValue, index) => {
-    const newarr = [...this.state.todos];
-    newarr[index].description = editValue;
-    newarr[index].isEditing = false;
-    this.setState({ todos: newarr });
-  };
-
-  completedTask = index => {
-    const newarr = [...this.state.todos];
-    newarr[index].isChecked = !newarr[index].isChecked;
-    this.setState({ todos: newarr });
-  };
-
   render() {
     return (
-      <div>
-        <h1>My React App!</h1>
-        <TodoApp
-          todos={this.state.todos}
-          newTask={this.newTask}
-          removeTask={this.removeTask}
-          editTask={this.editTask}
-          saveEditTask={this.saveEditTask}
-          completedTask={this.completedTask}
-        />
-      </div>
+      <Provider store={store}>
+        <div>
+          <h1>My React App!</h1>
+          <TodoApp />
+        </div>
+      </Provider>
     );
   }
 }

@@ -5,41 +5,16 @@ import TodoInput from "./TodoInput";
 import ListCreator from "./ListCreator/ListCreator";
 
 class TodoApp extends React.Component {
-  addTask = newTodoValue => {
-    const newTODO = {
-      description: newTodoValue,
-      isEditing: false,
-      isChecked: false
-    };
-    this.props.newTask(newTODO);
-  };
-
-  deleteTask = index => () => {
-    this.props.removeTask(index);
-  };
-
-  onEdit = index => () => {
-    this.props.editTask(index);
-  };
-
-  saveEdit = (editValue, index) => {
-    this.props.saveEditTask(editValue, index);
-  };
-
-  onCompleted = index => () => {
-    this.props.completedTask(index);
-  };
-
   render() {
     return (
       <>
-        <TodoInput addTask={this.addTask} />
+        <TodoInput addTask={this.props.addTask} />
         <ListCreator
           todos={this.props.todos}
-          deleteTask={this.deleteTask}
-          onEdit={this.onEdit}
-          saveEdit={this.saveEdit}
-          onCompleted={this.onCompleted}
+          deleteTask={this.props.deleteTask}
+          editTask={this.props.editTask}
+          saveEditTask={this.props.saveEditTask}
+          completedTask={this.props.completedTask}
         />
       </>
     );
@@ -47,9 +22,9 @@ class TodoApp extends React.Component {
 }
 
 TodoApp.propTypes = {
+  addTask: PropTypes.func,
   todos: PropTypes.array,
-  newTask: PropTypes.func,
-  removeTask: PropTypes.func,
+  deleteTask: PropTypes.func,
   editTask: PropTypes.func,
   saveEditTask: PropTypes.func,
   completedTask: PropTypes.func

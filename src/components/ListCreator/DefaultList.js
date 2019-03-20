@@ -3,21 +3,21 @@ import PropTypes from "prop-types";
 
 class DefaultList extends React.Component {
   render() {
-    const { index, item, onCompleted, onEdit, deleteTask } = this.props;
+    const { index, item, completedTask, editTask, deleteTask } = this.props;
     return (
       <div className="list-item">
         {!item.isChecked ? (
-          <div onClick={onCompleted(index)}>{item.description}</div>
+          <div onClick={() => completedTask(index)}>{item.description}</div>
         ) : (
-          <div className="completed" onClick={onCompleted(index)}>
+          <div className="completed" onClick={() => completedTask(index)}>
             {item.description}
           </div>
         )}
         <div>
-          <i className="material-icons" onClick={onEdit(index)}>
+          <i className="material-icons" onClick={() => editTask(index)}>
             build
           </i>
-          <i className="material-icons" onClick={deleteTask(index)}>
+          <i className="material-icons" onClick={() => deleteTask(index)}>
             delete
           </i>
         </div>
@@ -29,8 +29,8 @@ class DefaultList extends React.Component {
 DefaultList.propTypes = {
   index: PropTypes.number,
   item: PropTypes.object,
-  onCompleted: PropTypes.func,
-  onEdit: PropTypes.func,
+  completedTask: PropTypes.func,
+  editTask: PropTypes.func,
   deleteTask: PropTypes.func
 };
 

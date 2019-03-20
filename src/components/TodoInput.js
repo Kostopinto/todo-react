@@ -41,6 +41,11 @@ class TodoInput extends React.Component {
           variant="outlined"
           onChange={this.changeInputLocal}
           value={this.state.inputValue}
+          onKeyPress={event => {
+            if (event.key === "Enter") {
+              this.addTask();
+            }
+          }}
         />
         <Fab
           color="primary"
