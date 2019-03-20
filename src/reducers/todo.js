@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TASK:
       const newTODO = {
-        description: action.newTodoValue,
+        description: action.payload,
         isEditing: false,
         isChecked: false
       };
@@ -32,32 +32,41 @@ export default (state = initialState, action) => {
     case DELETE_TASK:
       return {
         ...state,
-        todos: state.todos.filter((item, index) => index !== action.index)
+        todos: state.todos.filter((item, index) => index !== action.payload)
       };
 
     case EDIT_TASK:
-      const editItem = state.todos[action.index];
       return {
         ...state,
-        todos: [...state.todos],
-        editItem: (editItem.isEditing = !editItem.isEditing)
+        todos: state.todos.map((item, index) =>
+          index === action.payload
+            ? { ...item, isEditing: !item.isEditing }
+            : item
+        )
       };
 
     case COMPLETED_TASK:
-      const complitedItem = state.todos[action.index];
       return {
         ...state,
-        todos: [...state.todos],
-        complitedItem: (complitedItem.isChecked = !complitedItem.isChecked)
+        todos: state.todos.map((item, index) =>
+          index === action.payload
+            ? { ...item, isChecked: !item.isChecked }
+            : item
+        )
       };
 
     case SAVE_EDIT_TASK:
-      const saveEditItem = state.todos[action.index];
       return {
         ...state,
-        todos: [...state.todos],
-        saveEditItem: ((saveEditItem.isEditing = !saveEditItem.isEditing),
-        (saveEditItem.description = action.editValue))
+        todos: state.todos.map((item, index) =>
+          index === action.payload.index
+            ? {
+                ...item,
+                isEditing: !item.isEditing,
+                description: action.payload.editValue
+              }
+            : item
+        )
       };
 
     default:

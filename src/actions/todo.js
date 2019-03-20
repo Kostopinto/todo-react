@@ -6,16 +6,24 @@ import {
   SAVE_EDIT_TASK
 } from "./actionTypes";
 
-export const addTask = newTodoValue => ({ type: ADD_TASK, newTodoValue });
+export const addTask = newTodoValue => ({
+  type: ADD_TASK,
+  payload: newTodoValue
+});
 
-export const deleteTask = index => ({ type: DELETE_TASK, index });
+export const deleteTask = index => ({ type: DELETE_TASK, payload: index });
 
-export const editTask = index => ({ type: EDIT_TASK, index });
+export const editTask = index => ({ type: EDIT_TASK, payload: index });
 
-export const completedTask = index => ({ type: COMPLETED_TASK, index });
+export const completedTask = index => ({
+  type: COMPLETED_TASK,
+  payload: index
+});
 
 export const saveEditTask = (editValue, index) => ({
   type: SAVE_EDIT_TASK,
-  editValue,
-  index
+  payload: {
+    editValue,
+    index
+  }
 });
