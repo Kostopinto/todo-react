@@ -27,16 +27,16 @@ describe("todo reducer", () => {
   describe(`Handle  ${ADD_TASK} action correctly`, () => {
     it(`When add new task`, () => {
       const prevState = mockState;
-      const newTodoValue = "test2";
+      const payload = "test2";
       const testItem = {
-        description: newTodoValue,
+        description: payload,
         isEditing: false,
         isChecked: false
       };
       const expectedState = { todos: [...mockState.todos, testItem] };
       const actualState = todo(prevState, {
         type: ADD_TASK,
-        newTodoValue
+        payload
       });
       expect(actualState).toEqual(expectedState);
     });
@@ -45,14 +45,14 @@ describe("todo reducer", () => {
   describe(`Handle ${DELETE_TASK} action correctly`, () => {
     it(`When delete task`, () => {
       const prevState = mockState;
-      const index = 0;
+      const payload = 0;
       const expectedState = {
         ...mockState,
-        todos: mockState.todos.filter((item, arrIndexx) => arrIndexx !== index)
+        todos: mockState.todos.filter((item, index) => index !== payload)
       };
       const actualState = todo(prevState, {
         type: DELETE_TASK,
-        index
+        payload
       });
       expect(actualState).toEqual(expectedState);
     });
@@ -60,31 +60,17 @@ describe("todo reducer", () => {
 
   describe(`Handle ${EDIT_TASK} action correctly`, () => {
     it(`When edit task`, () => {
-      const mockStateEdit = {
-        todos: [
-          {
-            description: "kotelvaaaa",
-            isEditing: false,
-            isChecked: false
-          },
-          {
-            description: "poltavvaaa",
-            isEditing: false,
-            isChecked: false
-          }
-        ]
-      };
       const prevState = mockState;
-      const index = 1;
-      const editItem = mockStateEdit.todos[index];
+      const payload = 0;
       const expectedState = {
-        ...mockStateEdit,
-        todos: [...mockStateEdit.todos],
-        editItem: (editItem.isEditing = !editItem.isEditing)
+        ...mockState,
+        todos: mockState.todos.map((item, index) =>
+          index === payload ? { ...item, isEditing: !item.isEditing } : item
+        )
       };
       const actualState = todo(prevState, {
         type: EDIT_TASK,
-        index
+        payload
       });
       expect(actualState).toEqual(expectedState);
     });
@@ -92,33 +78,56 @@ describe("todo reducer", () => {
 
   describe(`Handle ${COMPLETED_TASK} action correctly`, () => {
     it(`When comleted task`, () => {
-      const mockStateCompleted = {
-        todos: [
-          {
-            description: "kotelvaaaa",
-            isEditing: false,
-            isChecked: false
-          },
-          {
-            description: "poltavvaaa",
-            isEditing: false,
-            isChecked: false
-          }
-        ]
-      };
       const prevState = mockState;
-      const index = 1;
-      const complitedItem = mockStateCompleted.todos[index];
+      const payload = 0;
       const expectedState = {
-        ...mockStateCompleted,
-        todos: [...mockStateCompleted.todos],
-        complitedItem: (complitedItem.isChecked = !complitedItem.isChecked)
+        ...mockState,
+        todos: mockState.todos.map((item, index) =>
+          index === payload ? { ...item, isChecked: !item.isChecked } : item
+        )
       };
       const actualState = todo(prevState, {
         type: COMPLETED_TASK,
-        index
+        payload
       });
       expect(actualState).toEqual(expectedState);
+    });
+  });
+
+  describe(`Handle ${SAVE_EDIT_TASK} action correctly`, () => {
+    it(`When save task after editing`, () => {
+      const prevState = mockState;
+      const payload = {
+        index: 0,
+        editValue: "test test"
+      };
+      const expectedState = {
+        ...mockState,
+        todos: mockState.todos.map((item, index) =>
+          index === payload.index
+            ? {
+                ...item,
+                isEditing: !item.isEditing,
+                description: payload.editValue
+              }
+            : item
+        )
+      };
+      const actualState = todo(prevState, {
+        type: SAVE_EDIT_TASK,
+        payload
+      });
+      expect(actualState).toEqual(expectedState);
+    });
+
+    describe("Handle default action correctly", () => {
+      it("When action is nonexistent", () => {
+        const expectedState = mockState;
+        const actualState = todo(mockState, {
+          type: "ACTION_FOR_TESTING_DEFAULT_STATE"
+        });
+        expect(actualState).toEqual(expectedState);
+      });
     });
   });
 });
