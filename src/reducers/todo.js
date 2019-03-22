@@ -68,7 +68,6 @@ export default (state = initialState, action) => {
             : item
         )
       };
-
     default:
       return state;
   }

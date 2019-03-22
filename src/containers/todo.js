@@ -9,20 +9,16 @@ import {
   saveEditTask
 } from "../actions/todo";
 
-const mapStateToProps = state => {
-  return {
-    todos: state.todo.todos
-  };
-};
+const mapStateToProps = state => ({
+  todos: state.todo.todos
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addTask: newTodoValue => dispatch(addTask(newTodoValue)),
-    deleteTask: index => dispatch(deleteTask(index)),
-    editTask: index => dispatch(editTask(index)),
-    completedTask: index => dispatch(completedTask(index)),
-    saveEditTask: (editValue, index) => dispatch(saveEditTask(editValue, index))
-  };
+const mapDispatchToProps = {
+  addTask,
+  deleteTask,
+  editTask,
+  completedTask,
+  saveEditTask
 };
 
 export default connect(

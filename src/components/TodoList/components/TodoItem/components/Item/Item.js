@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-class DefaultList extends React.Component {
+class Item extends React.Component {
   render() {
     const { index, item, completedTask, editTask, deleteTask } = this.props;
     return (
@@ -26,7 +26,7 @@ class DefaultList extends React.Component {
   }
 }
 
-DefaultList.propTypes = {
+Item.propTypes = {
   index: PropTypes.number,
   item: PropTypes.object,
   completedTask: PropTypes.func,
@@ -34,4 +34,4 @@ DefaultList.propTypes = {
   deleteTask: PropTypes.func
 };
 
-export default DefaultList;
+export default Item;
