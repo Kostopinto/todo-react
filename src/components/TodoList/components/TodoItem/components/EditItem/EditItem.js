@@ -15,11 +15,14 @@ class EditList extends React.Component {
   };
 
   saveEdit = () => {
-    this.props.saveEditTask(this.state.inputValue, this.props.index);
+    this.props.saveEditTask({
+      editValue: this.state.inputValue,
+      id: this.props.item.id
+    });
   };
 
   render() {
-    const { index, item, editTask } = this.props;
+    const { item, editTask } = this.props;
 
     return (
       <div className="on-edit">
@@ -37,7 +40,7 @@ class EditList extends React.Component {
           <i className="material-icons" onClick={() => this.saveEdit()}>
             cached
           </i>
-          <i className="material-icons" onClick={() => editTask(index)}>
+          <i className="material-icons" onClick={() => editTask(item.id)}>
             power_settings_new
           </i>
         </div>

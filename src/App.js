@@ -6,7 +6,7 @@ import TodoApp from "./containers/todo";
 import "./styles/App.css";
 import storeCreator from "./store.js";
 
-const store = storeCreator();
+export const store = storeCreator();
 class App extends React.Component {
   render() {
     return (

@@ -1,8 +1,8 @@
 import React from "react";
 
 import TodoItem from "../../TodoItem";
-import Item from "../../components/Item/";
-import EditItem from "../../components/EditItem/";
+import Item from "../Item";
+import EditItem from "../EditItem";
 
 import { shallow } from "enzyme";
 

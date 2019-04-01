@@ -19,6 +19,18 @@ h1 {
   text-align: center;
 }
 
+.login-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  text-align: center;
+}
+
+.login-buttons {
+  justify-content: space-around;
+}
+
 .list {
   white-space: pre-wrap;
 }

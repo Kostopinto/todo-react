@@ -3,43 +3,42 @@ import {
   DELETE_TASK,
   EDIT_TASK,
   COMPLETED_TASK,
-  SAVE_EDIT_TASK
+  SAVE_EDIT_TASK,
+  LOGIN,
+  ADD_TOKEN,
+  GET_TODOS_BACK
 } from "../actions/actionTypes";
 
 const initialState = {
-  todos: [
-    {
-      description: "kotelvaaaa",
-      isEditing: false,
-      isChecked: false
-    }
-  ]
+  todos: [],
+  token: localStorage.getItem("token")
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TASK:
-      const newTODO = {
-        description: action.payload,
-        isEditing: false,
-        isChecked: false
-      };
       return {
         ...state,
-        todos: [...state.todos, newTODO]
+        todos: [...state.todos, action.payload]
+      };
+
+    case ADD_TOKEN:
+      return {
+        ...state,
+        token: action.payload
       };
 
     case DELETE_TASK:
       return {
         ...state,
-        todos: state.todos.filter((item, index) => index !== action.payload)
+        todos: state.todos.filter(item => item.id !== action.payload)
       };
 
     case EDIT_TASK:
       return {
         ...state,
-        todos: state.todos.map((item, index) =>
-          index === action.payload
+        todos: state.todos.map(item =>
+          item.id === action.payload.id
             ? { ...item, isEditing: !item.isEditing }
             : item
         )
@@ -48,8 +47,8 @@ export default (state = initialState, action) => {
     case COMPLETED_TASK:
       return {
         ...state,
-        todos: state.todos.map((item, index) =>
-          index === action.payload
+        todos: state.todos.map(item =>
+          item.id === action.payload.id
             ? { ...item, isChecked: !item.isChecked }
             : item
         )
@@ -58,8 +57,8 @@ export default (state = initialState, action) => {
     case SAVE_EDIT_TASK:
       return {
         ...state,
-        todos: state.todos.map((item, index) =>
-          index === action.payload.index
+        todos: state.todos.map(item =>
+          item.id === action.payload.id
             ? {
                 ...item,
                 isEditing: !item.isEditing,
@@ -68,6 +67,13 @@ export default (state = initialState, action) => {
             : item
         )
       };
+
+    case GET_TODOS_BACK:
+      return {
+        ...state,
+        todos: [...state.todos, ...action.payload]
+      };
+
     default:
       return state;
   }

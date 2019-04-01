@@ -16,6 +16,10 @@ const styles = theme => ({
 });
 
 export class TodoList extends React.Component {
+  componentDidMount() {
+    this.props.getAllTodos();
+  }
+
   render() {
     return (
       <div className="list">
@@ -24,11 +28,10 @@ export class TodoList extends React.Component {
             Your tasks today
           </Typography>
           <Typography component="div">
-            {this.props.todos.map((item, index) => (
+            {this.props.todos.map(item => (
               <TodoItem
-                key={index}
+                key={item.id}
                 item={item}
-                index={index}
                 completedTask={this.props.completedTask}
                 editTask={this.props.editTask}
                 deleteTask={this.props.deleteTask}
@@ -48,6 +51,7 @@ TodoList.propTypes = {
   editTask: PropTypes.func,
   deleteTask: PropTypes.func,
   saveEditTask: PropTypes.func,
+  getAllTodos: PropTypes.func,
   classes: PropTypes.object,
   root: PropTypes.string
 };

@@ -6,19 +6,35 @@ import {
   deleteTask,
   editTask,
   completedTask,
-  saveEditTask
+  saveEditTask,
+  login,
+  loginUser,
+  addToken,
+  getAllTodos,
+  getAll,
+  addTaskBack,
+  deleteTaskBack,
+  editTaskBack,
+  completedTaskBack,
+  saveEditTaskBack
 } from "../actions/todo";
 
 const mapStateToProps = state => ({
-  todos: state.todo.todos
+  todos: state.todo.todos,
+  token: state.todo.token
 });
 
-const mapDispatchToProps = {
-  addTask,
-  deleteTask,
-  editTask,
-  completedTask,
-  saveEditTask
+const mapDispatchToProps = dispatch => {
+  return {
+    login: payload => dispatch(loginUser(payload)),
+    addToken: payload => dispatch(addToken(payload)),
+    getAllTodos: () => dispatch(getAll()),
+    addTask: payload => dispatch(addTaskBack(payload)),
+    deleteTask: payload => dispatch(deleteTaskBack(payload)),
+    editTask: payload => dispatch(editTaskBack(payload)),
+    completedTask: payload => dispatch(completedTaskBack(payload)),
+    saveEditTask: payload => dispatch(saveEditTaskBack(payload))
+  };
 };
 
 export default connect(
